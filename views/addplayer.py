@@ -12,4 +12,4 @@ class AddPlayer:
         gender_input = input("Gender (F/M): ")
         ranking_input = input("Ranking: ")
 
-        Player(last_name_input, first_name_input, date_of_birth_input, gender_input, ranking_input)
+        Player(last_name_input, first_name_input, date_of_birth_input, gender_input, ranking_input).insert()
