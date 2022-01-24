@@ -1,15 +1,13 @@
-from models.Player import Player
-
-
-class AddPlayer:
+class AddPlayerView:
     """AddPlayer class"""
 
-    def __init__(self):
+    @staticmethod
+    def player():
         print("Add a player:")
-        last_name_input = input("Last name: ")
-        first_name_input = input("First name: ")
-        date_of_birth_input = input("Date of birth (DD/MM/YYYY): ")
-        gender_input = input("Gender (F/M): ")
-        ranking_input = input("Ranking: ")
-
-        Player(last_name_input, first_name_input, date_of_birth_input, gender_input, ranking_input).insert()
+        data = dict()
+        data["last_name_input"] = input("Last name: ")
+        data["first_name_input"] = input("First name: ")
+        data["date_of_birth_input"] = input("Date of birth (DD/MM/YYYY): ")
+        data["gender_input"] = input("Gender (F/M): ")
+        data["ranking_input"] = input("Ranking: ")
+        return data

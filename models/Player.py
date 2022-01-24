@@ -15,6 +15,14 @@ class Player:
         self.date_of_birth = date_of_birth
         self.gender = gender
         self.ranking = ranking
+        self.table = TinyDB("players.json").table('players')
+
+    def insert(self):
+        self.id = self.table.insert(self.serialize())
+        self.update()
+
+    def update(self):
+        self.table.update(self.serialize(), doc_ids=[self.id])
 
     def serialize(self):
         return {
@@ -26,12 +34,17 @@ class Player:
             "ranking": self.ranking
         }
 
-    def insert(self):
-        database = TinyDB('players.json')
-        player_table = database.table('players')
-        player_table.insert(self.serialize())
+    def deserialize(self, player):
+        self.id = player["id"]
+        self.last_name = player["last_name"]
+        self.first_name = player["first_name"]
+        self.date_of_birth = player["date_of_birth"]
+        self.gender = player["gender"]
+        self.ranking = player["ranking"]
 
-    def update(self):
-        self.id = id
-
+    def retrieve_all(self):
+        players = []
+        for player in self.table.all():
+            players.append(player)
+        return players
 
