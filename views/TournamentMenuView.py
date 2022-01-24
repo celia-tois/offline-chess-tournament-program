@@ -1,12 +1,14 @@
 """Define the tournament menu"""
 
 import views.mainmenu as menu
+import controllers.launchround as launchround
+import controllers.endround as endround
 
 
 class TournamentMenu:
     """TournamentMenu class"""
 
-    def __init__(self):
+    def __init__(self, tournament):
         while True:
             print("Load a tournament:")
             print("1: Launch a round")
@@ -14,11 +16,9 @@ class TournamentMenu:
             print("q: Return to the main menu")
             user_choice = input("Your choice? ")
             if user_choice == "1":
-                print("1")
-                break
+                launchround.LaunchRound()
             elif user_choice == "2":
-                print("2")
-                break
+                endround.EndRound()
             elif user_choice == "q":
                 menu.MainMenu()
             else:

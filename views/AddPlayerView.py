@@ -1,4 +1,4 @@
-from models.player import Player
+from models.Player import Player
 
 
 class AddPlayer:
