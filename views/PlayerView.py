@@ -1,4 +1,4 @@
-class AddPlayerView:
+class PlayerView:
     """AddPlayer class"""
 
     @staticmethod

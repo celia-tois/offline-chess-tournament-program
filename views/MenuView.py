@@ -1,7 +1,7 @@
 """Define the main menu."""
 
 
-class MainMenuView:
+class MenuView:
     """MainMenu class"""
 
     @staticmethod
@@ -15,3 +15,12 @@ class MainMenuView:
         user_choice = input("Your choice? ")
         return user_choice
 
+    @staticmethod
+    def display_tournament_menu():
+        print("Load a tournament:")
+        print("1: Select a tournament")
+        print("2: Launch a round")
+        print("3: End a round")
+        print("q: Return to the main menu")
+        user_choice = input("Your choice? ")
+        return user_choice

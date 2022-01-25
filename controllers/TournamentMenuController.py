@@ -1,5 +1,4 @@
-from views.TournamentMenuView import TournamentMenuView
-from views.MainMenuView import MainMenuView
+from views.MenuView import MenuView
 from controllers.launchround import LaunchRound
 from controllers.endround import EndRound
 
@@ -7,12 +6,14 @@ from controllers.endround import EndRound
 class TournamentMenuController:
     def __init__(self, tournament):
         while True:
-            user_choice = TournamentMenuView()
+            user_choice = MenuView.display_tournament_menu()
             if user_choice == "1":
-                LaunchRound()
+                print("1")
             elif user_choice == "2":
+                LaunchRound()
+            elif user_choice == "3":
                 EndRound()
             elif user_choice == "q":
-                MainMenuView()
+                MenuView()
             else:
                 print("Invalid choice, please enter a correct option.")

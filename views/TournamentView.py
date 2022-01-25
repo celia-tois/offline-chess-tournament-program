@@ -1,8 +1,7 @@
-from models.Tournament import Tournament
 from models.Player import Player
 
 
-class CreateTournamentView:
+class TournamentView:
     """CreateTournament class"""
 
     @staticmethod

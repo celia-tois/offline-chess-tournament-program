@@ -1,6 +1,5 @@
 """Define the players"""
 
-# from models.player import Player
 from tinydb import TinyDB
 
 

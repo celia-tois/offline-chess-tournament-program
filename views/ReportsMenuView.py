@@ -1,6 +1,6 @@
 """Define the reports menu."""
 
-import views.MainMenuView as menu
+from views.MenuView import MenuView
 
 
 class ReportsMenu:
@@ -32,6 +32,6 @@ class ReportsMenu:
                 print("5")
                 break
             elif user_choice == "q":
-                menu.MainMenu()
+                MenuView()
             else:
                 print("Invalid choice, please enter a correct option.")
