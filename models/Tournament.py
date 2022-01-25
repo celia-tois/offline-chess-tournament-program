@@ -1,29 +1,41 @@
 """Define the players"""
 
-from models.player import Player
-from tinydb import TinyDB, Query, where
+# from models.player import Player
+from tinydb import TinyDB
 
 
 class Tournament:
     """Tournament class"""
 
-    def __init__(self, name=None, place=None, date=None, time_control=None, description=None):
+    def __init__(self, name=None, place=None, start_date=None, end_date=None, players=[], time_control=None, description=None):
         """Init the name, place, date, players, time_control, description"""
 
+        self.id = -1
         self.name = name
         self.place = place
-        self.date = date
+        self.start_date = start_date
+        self.end_date = end_date
         self.number_rounds = 4
-        self.rounds = "liste des instances de rondes"
-        self.players = []
+        self.rounds = []
+        self.players = players,
         self.time_control = time_control
         self.description = description
+        self.table = TinyDB('tournament.json').table('tournament')
+
+    def insert(self):
+        self.id = self.table.insert(self.serialize())
+        self.update()
+
+    def update(self):
+        self.table.update(self.serialize(), doc_ids=[self.id])
 
     def serialize(self):
         return {
+            "id": self.id,
             "name": self.name,
             "place": self.place,
-            "date": self.date,
+            "start_date": self.start_date,
+            "end_date": self.end_date,
             "number_rounds": self.number_rounds,
             "rounds": self.rounds,
             "players": self.players,
@@ -31,12 +43,14 @@ class Tournament:
             "description": self.description
         }
 
-    def insert(self):
-        database = TinyDB('tournament.json')
-        tournament_table = database.table('tournament')
-        tournament_table.insert(self.serialize())
-
-
-
-
-
+    def deserialize(self, tournament):
+        self.id = tournament["id"]
+        self.name = tournament["name"]
+        self.place = tournament["place"]
+        self.start_date = tournament["start_date"]
+        self.end_date = tournament["end_date"]
+        self.number_rounds = tournament["number_rounds"]
+        self.rounds = tournament["rounds"]
+        self.players = tournament["players"]
+        self.time_control = tournament["time_control"]
+        self.description = tournament["description"]

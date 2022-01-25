@@ -1,6 +1,6 @@
 """Define the reports menu."""
 
-import views.mainmenu as menu
+import views.MainMenuView as menu
 
 
 class ReportsMenu:

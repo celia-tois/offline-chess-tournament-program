@@ -1,7 +1,7 @@
 """Define the main menu."""
 
 
-class MainMenu:
+class MainMenuView:
     """MainMenu class"""
 
     @staticmethod
