@@ -14,7 +14,6 @@ class Controller:
 
     @staticmethod
     def create_tournament():
-        tournament_info = TournamentView.tournament()
+        tournament_info = TournamentView.create_tournament(Player().retrieve_all())
         tournament = Tournament(tournament_info["name_input"], tournament_info["place_input"], tournament_info["start_date_input"], tournament_info["end_date_input"], tournament_info["players_input"], tournament_info["time_control_input"], tournament_info["description_input"])
         tournament.insert()
-

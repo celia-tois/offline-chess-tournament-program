@@ -16,10 +16,10 @@ class Tournament:
         self.end_date = end_date
         self.number_rounds = 4
         self.rounds = []
-        self.players = players,
+        self.players = players
         self.time_control = time_control
         self.description = description
-        self.table = TinyDB('tournament.json').table('tournament')
+        self.table = TinyDB('tournaments.json').table('tournaments')
 
     def insert(self):
         self.id = self.table.insert(self.serialize())
@@ -53,3 +53,9 @@ class Tournament:
         self.players = tournament["players"]
         self.time_control = tournament["time_control"]
         self.description = tournament["description"]
+
+    def retrieve_all(self):
+        tournaments = []
+        for tournament in self.table.all():
+            tournaments.append(tournament)
+        return tournaments

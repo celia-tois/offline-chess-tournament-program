@@ -2,8 +2,8 @@
 
 """Entry point."""
 
-from controllers.MainMenuController import MainMenuManager
+from controllers.MainMenuController import MainMenuController
 
 
 if __name__ == "__main__":
-    MainMenuManager()
+    MainMenuController()
