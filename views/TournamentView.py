@@ -53,3 +53,14 @@ class TournamentView:
             if int(tournament_input) == tournament['id']:
                 tournament_selected = tournament
         return tournament_selected
+
+    @staticmethod
+    def enter_match_result(match):
+        print("Select the winner:")
+        print("0: equality")
+        option = 1
+        for player in match:
+            print(f"{option}: {player[0]['last_name']} {player[0]['first_name']}")
+            option += 1
+        winner = input("Winner: ")
+        return winner

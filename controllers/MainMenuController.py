@@ -1,5 +1,5 @@
 from views.MenuView import MenuView
-from views.ReportsMenuView import ReportsMenu
+from controllers.ReportsController import ReportsController
 from controllers.Controller import Controller
 from controllers.TournamentMenuController import TournamentMenuController
 
@@ -18,6 +18,6 @@ class MainMenuController:
                 print("4")
                 break
             elif user_choice == "5":
-                ReportsMenu()
+                ReportsController()
             else:
                 print("Invalid choice, please enter a correct option.")
