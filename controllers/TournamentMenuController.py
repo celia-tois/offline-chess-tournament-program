@@ -51,4 +51,3 @@ class TournamentMenuController:
             players_pairs.append([player, second_half[player_to_match]])
             player_to_match += 1
         return players_pairs
-
