@@ -1,7 +1,3 @@
-from models.Player import Player
-from models.Tournament import Tournament
-
-
 class TournamentView:
     """CreateTournament class"""
 
@@ -47,10 +43,10 @@ class TournamentView:
         """
         print("Select a tournament:")
         for tournament in tournaments_to_display:
-            print(f"{tournament['id']}: {tournament['name']}")
+            print(tournament)
         tournament_input = input("Tournament: ")
         for tournament in tournaments_to_display:
-            if int(tournament_input) == tournament['id']:
+            if int(tournament_input) == tournament.id:
                 tournament_selected = tournament
         return tournament_selected
 
@@ -60,7 +56,7 @@ class TournamentView:
         print("0: equality")
         option = 1
         for player in match:
-            print(f"{option}: {player[0]['last_name']} {player[0]['first_name']}")
+            print(f"{option}: {player[0]['first_name']} {player[0]['last_name']}")
             option += 1
         winner = input("Winner: ")
         return winner

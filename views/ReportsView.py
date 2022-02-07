@@ -21,8 +21,8 @@ class ReportsView:
     def display_table(data):
         field_names = []
         table = PrettyTable()
-        for item in data[0]:
-            field_names.append(item)
+        for key in data[0]:
+            field_names.append(key)
         table.field_names = field_names
         for info in data:
             data_values = []

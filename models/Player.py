@@ -15,6 +15,7 @@ class Player:
         self.date_of_birth = date_of_birth
         self.gender = gender
         self.ranking = ranking
+        self.score = 0
         self.table = TinyDB("players.json").table('players')
 
     def insert(self):
@@ -31,7 +32,8 @@ class Player:
             "first_name": self.first_name,
             "date_of_birth": self.date_of_birth,
             "gender": self.gender,
-            "ranking": self.ranking
+            "ranking": self.ranking,
+            "score": self.score
         }
 
     def deserialize(self, player):
@@ -41,6 +43,7 @@ class Player:
         self.date_of_birth = player["date_of_birth"]
         self.gender = player["gender"]
         self.ranking = player["ranking"]
+        self.score = player["score"]
 
     def retrieve_all(self):
         players = []

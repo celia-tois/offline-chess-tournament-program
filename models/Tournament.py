@@ -21,6 +21,9 @@ class Tournament:
         self.description = description
         self.table = TinyDB('tournaments.json').table('tournaments')
 
+    def __str__(self):
+        return f"{self.id}: {self.name}"
+
     def insert(self):
         self.id = self.table.insert(self.serialize())
         self.update()
@@ -53,9 +56,10 @@ class Tournament:
         self.players = tournament["players"]
         self.time_control = tournament["time_control"]
         self.description = tournament["description"]
+        return self
 
     def retrieve_all(self):
         tournaments = []
         for tournament in self.table.all():
-            tournaments.append(tournament)
+            tournaments.append(Tournament().deserialize(tournament))
         return tournaments
