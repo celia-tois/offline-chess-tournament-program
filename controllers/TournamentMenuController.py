@@ -19,16 +19,19 @@ class TournamentMenuController:
             print("Invalid choice, please enter a correct option.")
 
     def launch_round(self):
-        new_round = Round(self.tournament.rounds).serialize()
-        if len(self.tournament.rounds) == 0:
-            new_round["matches"] = TournamentMenuController.first_players_pairing(self)
+        if len(self.tournament.rounds) == 0 or "end_date" in self.tournament.rounds[-1]:
+            new_round = Round(self.tournament.rounds).serialize()
+            if len(self.tournament.rounds) == 0:
+                new_round["matches"] = TournamentMenuController.first_players_pairing(self)
+            else:
+                new_round["matches"] = TournamentMenuController.others_players_pairing(self)
+            self.tournament.rounds.append(new_round)
+            self.tournament.update()
         else:
-            new_round["matches"] = TournamentMenuController.others_players_pairing(self)
-        self.tournament.rounds.append(new_round)
-        self.tournament.update()
+            print("You have to end the previous round before launching a new one.")
 
     def end_round(self):
-        new_round = self.tournament.rounds[0]
+        new_round = self.tournament.rounds[-1]
         new_round["end_date"] = datetime.now().isoformat(timespec='minutes')
         players_pairs_updated = []
         for match in new_round["matches"]:
