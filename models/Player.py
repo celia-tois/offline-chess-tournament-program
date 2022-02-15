@@ -6,8 +6,14 @@ from tinydb import TinyDB
 class Player:
     """Player class"""
 
-    def __init__(self, last_name=None, first_name=None, date_of_birth=None, gender=None, ranking=None):
-        """Init the last_name, first_name, date_of_birth, gender and the rank"""
+    def __init__(self,
+                 last_name=None,
+                 first_name=None,
+                 date_of_birth=None,
+                 gender=None,
+                 ranking=None):
+        """Init the last_name, first_name, date_of_birth, gender
+        and the rank"""
 
         self.id = -1,
         self.last_name = last_name
@@ -54,4 +60,3 @@ class Player:
         for player in self.table.all():
             players.append(Player().deserialize(player))
         return players
-

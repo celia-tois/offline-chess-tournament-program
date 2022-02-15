@@ -31,9 +31,11 @@ class ReportsView:
     @staticmethod
     def display_table(data):
         table = PrettyTable()
-        table.field_names = [attr for attr, value in data[0].__dict__.items() if not attr == "table"]
+        table.field_names = [attr for attr, value in data[0].__dict__.items()
+                             if not attr == "table"]
         for info in data:
-            table.add_row([value for attr, value in info.__dict__.items() if not attr == "table"])
+            table.add_row([value for attr, value in info.__dict__.items()
+                           if not attr == "table"])
         return table
 
     @staticmethod
@@ -43,7 +45,8 @@ class ReportsView:
     @staticmethod
     def display_tournament_players(data):
         table = PrettyTable()
-        players = [value for attr, value in data.__dict__.items() if attr == "players"][0]
+        players = [value for attr, value in data.__dict__.items()
+                   if attr == "players"][0]
         table.field_names = [attr for attr in players[0]]
         for player in players:
             table.add_row([value for attr, value in player.items()])
@@ -52,12 +55,18 @@ class ReportsView:
     @staticmethod
     def display_tournaments(data):
         table = ReportsView.display_table(data)
-        print(table.get_string(fields=["name", "place", "start_date", "end_date", "time_control", "description"]))
+        print(table.get_string(fields=["name",
+                                       "place",
+                                       "start_date",
+                                       "end_date",
+                                       "time_control",
+                                       "description"]))
 
     @staticmethod
     def display_rounds(data):
         table = PrettyTable()
-        rounds = [value for attr, value in data.__dict__.items() if attr == "rounds"][0]
+        rounds = [value for attr, value in data.__dict__.items()
+                  if attr == "rounds"][0]
         table.field_names = [attr for attr in rounds[0]]
         for round in rounds:
             table.add_row([value for attr, value in round.items()])
@@ -66,14 +75,19 @@ class ReportsView:
     @staticmethod
     def display_matches(data):
         table = PrettyTable()
-        rounds = [value for attr, value in data.__dict__.items() if attr == "rounds"][0]
+        rounds = [value for attr, value in data.__dict__.items()
+                  if attr == "rounds"][0]
         option = 1
         for round in rounds:
             print(f"{option}: {round['name']}")
             option += 1
         user_choice = input("Round: ")
-        table.field_names = ["player_1_name", "player_1_score", "player_2_name", "player_2_score"]
-        matches = [round for round in rounds if user_choice in round['name']][0]['matches']
+        table.field_names = ["player_1_name",
+                             "player_1_score",
+                             "player_2_name",
+                             "player_2_score"]
+        matches = [round for round in rounds
+                   if user_choice in round['name']][0]['matches']
         for match in matches:
             player_1_name = ""
             player_2_name = ""
@@ -83,7 +97,6 @@ class ReportsView:
                 player_1_name = f"{info['first_name']} {info['last_name']}"
             for info in match[1][0]:
                 player_2_name = f"{info['first_name']} {info['last_name']}"
-            table.add_row([player_1_name, player_1_score, player_2_name, player_2_score])
+            table.add_row(
+                [player_1_name, player_1_score, player_2_name, player_2_score])
         print(table)
-
-

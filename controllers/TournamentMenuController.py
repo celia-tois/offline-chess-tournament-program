@@ -7,7 +7,8 @@ from datetime import datetime
 
 class TournamentMenuController:
     def __init__(self):
-        self.tournament = TournamentView.select_tournament(Tournament().retrieve_all())
+        self.tournament = (TournamentView
+                           .select_tournament(Tournament().retrieve_all()))
         user_choice = MenuView.display_tournament_menu()
         if user_choice == "1":
             TournamentMenuController.launch_round(self)
@@ -19,17 +20,20 @@ class TournamentMenuController:
             print("Invalid choice, please enter a correct option.")
 
     def launch_round(self):
-        print(self.tournament)
-        if len(self.tournament.rounds) == 0 or "end_date" in self.tournament.rounds[-1]:
+        if (len(self.tournament.rounds) == 0
+                or self.tournament.rounds[-1]["end_date"] is not None):
             new_round = Round(self.tournament.rounds).serialize()
             if len(self.tournament.rounds) == 0:
-                new_round["matches"] = TournamentMenuController.first_players_pairing(self)
+                new_round["matches"] = (TournamentMenuController
+                                        .first_players_pairing(self))
             else:
-                new_round["matches"] = TournamentMenuController.others_players_pairing(self)
+                new_round["matches"] = (TournamentMenuController
+                                        .others_players_pairing(self))
             self.tournament.rounds.append(new_round)
             self.tournament.update()
         else:
-            print("You have to end the previous round before launching a new one.")
+            print("You have to end the previous round before launching "
+                  "a new one.")
 
     def end_round(self):
         new_round = self.tournament.rounds[-1]
@@ -38,7 +42,8 @@ class TournamentMenuController:
         for match in new_round["matches"]:
             winner = TournamentView.enter_match_result(match)
             if int(winner) == 0:
-                players_pairs_updated.append(([match[0], 0.5], [match[1], 0.5]))
+                (players_pairs_updated
+                 .append(([match[0], 0.5], [match[1], 0.5])))
             elif int(winner) == 1:
                 players_pairs_updated.append(([match[0], 1], [match[1], 0]))
             elif int(winner) == 2:
@@ -58,11 +63,15 @@ class TournamentMenuController:
         sorted_players = sorted(players, key=sort_by_rank)
         return sorted_players
 
-    def sort_players_by_score(self):
+    def sort_players_by_score_and_rank(self):
         def sort_by_score(player):
             return player.get('score')
+
+        def sort_by_rank(player):
+            return player.get('ranking')
         players = self.tournament.players
-        sorted_players = sorted(players, key=sort_by_score, reverse=True)
+        sorted_players = sorted(players,
+                                key=lambda x: (sort_by_score, sort_by_rank))
         return sorted_players
 
     def first_players_pairing(self):
@@ -77,8 +86,7 @@ class TournamentMenuController:
         return players_pairs
 
     def others_players_pairing(self):
-        players = TournamentMenuController.sort_players_by_score(self)
-
+        players = TournamentMenuController.sort_players_by_score_and_rank(self)
         players_pairs = [
             ([players[0]], [players[1]]),
             ([players[2]], [players[3]]),

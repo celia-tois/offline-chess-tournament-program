@@ -1,5 +1,4 @@
 from datetime import datetime
-from models.Tournament import Tournament
 
 
 class Round:

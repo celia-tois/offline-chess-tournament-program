@@ -9,8 +9,10 @@ class TournamentView:
         data["place_input"] = input("Place: ")
         data["start_date_input"] = input("Start date (DD/MM/YYYY): ")
         data["end_date_input"] = input("End date (DD/MM/YYYY): ")
-        data["players_input"] = TournamentView.display_players(players_to_display)
-        data["time_control_input"] = input("Time control (bullet, blitz, coup rapide): ")
+        data["players_input"] = (TournamentView
+                                 .display_players(players_to_display))
+        data["time_control_input"] = input(
+            "Time control (bullet, blitz, coup rapide): ")
         data["description_input"] = input("Description: ")
         return data
 
@@ -18,7 +20,8 @@ class TournamentView:
     def display_players(players_to_display):
         """
         display_players()
-        Display all the players and return a list of the players selected by the user.
+        Display all the players and return a list of the players
+        selected by the user.
         :rtype: list of objects
         :return: selected players
         """
@@ -41,7 +44,8 @@ class TournamentView:
     def select_tournament(tournaments_to_display):
         """
         select_tournament()
-        Display all the tournaments and return the tournament selected by the user.
+        Display all the tournaments and return the tournament
+        selected by the user.
         :rtype: str
         :return: selected tournament
         """
@@ -50,7 +54,8 @@ class TournamentView:
             print(tournament)
         tournament_input = input("Tournament: ")
         for tournament in tournaments_to_display:
-            tournament_id = [value for attr, value in tournament.__dict__.items() if attr == "id"][0]
+            tournament_id = [value for attr, value
+                             in tournament.__dict__.items()if attr == "id"][0]
             if int(tournament_input) == tournament_id:
                 return tournament
 
@@ -60,7 +65,8 @@ class TournamentView:
         print("0: equality")
         option = 1
         for player in match:
-            print(f"{option}: {player[0]['first_name']} {player[0]['last_name']}")
+            print(f"{option}: {player[0]['first_name']} "
+                  f"{player[0]['last_name']}")
             option += 1
         winner = input("Winner: ")
         return winner
