@@ -19,6 +19,7 @@ class TournamentMenuController:
             print("Invalid choice, please enter a correct option.")
 
     def launch_round(self):
+        print(self.tournament)
         if len(self.tournament.rounds) == 0 or "end_date" in self.tournament.rounds[-1]:
             new_round = Round(self.tournament.rounds).serialize()
             if len(self.tournament.rounds) == 0:
@@ -77,6 +78,7 @@ class TournamentMenuController:
 
     def others_players_pairing(self):
         players = TournamentMenuController.sort_players_by_score(self)
+
         players_pairs = [
             ([players[0]], [players[1]]),
             ([players[2]], [players[3]]),

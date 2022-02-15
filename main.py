@@ -6,4 +6,7 @@ from controllers.MainMenuController import MainMenuController
 
 
 if __name__ == "__main__":
-    MainMenuController()
+    try:
+        MainMenuController()
+    except KeyboardInterrupt:
+        print("Shutdown requested...exiting")

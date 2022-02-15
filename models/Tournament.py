@@ -8,7 +8,6 @@ class Tournament:
 
     def __init__(self, name=None, place=None, start_date=None, end_date=None, players=[], time_control=None, description=None):
         """Init the name, place, date, players, time_control, description"""
-
         self.id = -1
         self.name = name
         self.place = place

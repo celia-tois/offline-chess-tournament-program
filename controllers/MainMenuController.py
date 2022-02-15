@@ -1,4 +1,5 @@
 from views.MenuView import MenuView
+from models.Player import Player
 from controllers.ReportsController import ReportsController
 from controllers.Controller import Controller
 from controllers.TournamentMenuController import TournamentMenuController
@@ -15,8 +16,7 @@ class MainMenuController:
             elif user_choice == "3":
                 TournamentMenuController()
             elif user_choice == "4":
-                print("4")
-                break
+                MenuView.modify_ranking(Player().retrieve_all())
             elif user_choice == "5":
                 ReportsController()
             else:

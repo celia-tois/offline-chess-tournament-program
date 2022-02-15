@@ -25,11 +25,15 @@ class TournamentView:
         players_selected = []
         while len(players_selected) < 8:
             for player in players_to_display:
-                print(f"{player['id']}: {player['first_name']} {player['last_name']}")
+                print(player)
             players_input = input("Player: ")
             for player in players_to_display:
-                if int(players_input) == player['id']:
-                    players_selected.append(player)
+                if int(players_input) == player.id:
+                    data = dict()
+                    for attr, value in player.__dict__.items():
+                        if not attr == "table":
+                            data[attr] = value
+                    players_selected.append(data)
                     players_to_display.remove(player)
         return players_selected
 
@@ -46,9 +50,9 @@ class TournamentView:
             print(tournament)
         tournament_input = input("Tournament: ")
         for tournament in tournaments_to_display:
-            if int(tournament_input) == tournament.id:
-                tournament_selected = tournament
-        return tournament_selected
+            tournament_id = [value for attr, value in tournament.__dict__.items() if attr == "id"][0]
+            if int(tournament_input) == tournament_id:
+                return tournament
 
     @staticmethod
     def enter_match_result(match):

@@ -10,18 +10,15 @@ class ReportsController:
         while True:
             user_choice = ReportsView.display_reports_menu()
             if user_choice == "1":
-                ReportsView().display_table(Player().retrieve_all())
+                ReportsView().display_players(Player().retrieve_all())
             elif user_choice == "2":
-                ReportsView().display_table(TournamentView.select_tournament(Tournament().retrieve_all())["players"])
+                ReportsView().display_tournament_players(TournamentView.select_tournament(Tournament().retrieve_all()))
             elif user_choice == "3":
-                print("3")
-                break
+                ReportsView().display_tournaments(Tournament().retrieve_all())
             elif user_choice == "4":
-                print("4")
-                break
+                ReportsView().display_rounds(TournamentView.select_tournament(Tournament().retrieve_all()))
             elif user_choice == "5":
-                print("5")
-                break
+                ReportsView().display_matches(TournamentView.select_tournament(Tournament().retrieve_all()))
             elif user_choice == "q":
                 MenuView.display_main_menu()
             else:
