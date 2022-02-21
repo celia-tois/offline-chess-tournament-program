@@ -1,3 +1,6 @@
+from views.ErrorHandlerView import ErrorHandlerView
+
+
 class TournamentView:
     """CreateTournament class"""
 
@@ -5,15 +8,15 @@ class TournamentView:
     def create_tournament(players_to_display):
         print("Create a tournament:")
         data = dict()
-        data["name_input"] = input("Name: ")
-        data["place_input"] = input("Place: ")
-        data["start_date_input"] = input("Start date (DD/MM/YYYY): ")
-        data["end_date_input"] = input("End date (DD/MM/YYYY): ")
+        data["name_input"] = ErrorHandlerView.is_a_string("Name: ")
+        data["place_input"] = ErrorHandlerView.is_a_string("Place: ")
+        data["start_date_input"] = ErrorHandlerView.is_a_date("Start date (DD/MM/YYYY): ")
+        data["end_date_input"] = ErrorHandlerView.is_a_date("End date (DD/MM/YYYY): ")
         data["players_input"] = (TournamentView
                                  .display_players(players_to_display))
         data["time_control_input"] = input(
             "Time control (bullet, blitz, coup rapide): ")
-        data["description_input"] = input("Description: ")
+        data["description_input"] = ErrorHandlerView.is_a_string("Description: ")
         return data
 
     @staticmethod
@@ -29,15 +32,13 @@ class TournamentView:
         while len(players_selected) < 8:
             for player in players_to_display:
                 print(player)
-            players_input = input("Player: ")
-            for player in players_to_display:
-                if int(players_input) == player.id:
-                    data = dict()
-                    for attr, value in player.__dict__.items():
-                        if not attr == "table":
-                            data[attr] = value
-                    players_selected.append(data)
-                    players_to_display.remove(player)
+            while True:
+                players_input = input("Player: ")
+                for player in players_to_display:
+                    if int(players_input) == player.id:
+                        players_selected.append(player)
+                        players_to_display.remove(player)
+                    ErrorHandlerView.display_error("Wrong option entered.")
         return players_selected
 
     @staticmethod

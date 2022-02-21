@@ -1,6 +1,7 @@
 """Define the players"""
 
 from tinydb import TinyDB
+from models.Player import Player
 
 
 class Tournament:
@@ -46,7 +47,7 @@ class Tournament:
             "end_date": self.end_date,
             "number_rounds": self.number_rounds,
             "rounds": self.rounds,
-            "players": self.players,
+            "players": [player.serialize() for player in self.players],
             "time_control": self.time_control,
             "description": self.description
         }
@@ -59,13 +60,10 @@ class Tournament:
         self.end_date = tournament["end_date"]
         self.number_rounds = tournament["number_rounds"]
         self.rounds = tournament["rounds"]
-        self.players = tournament["players"]
+        self.players = [Player().deserialize(player) for player in tournament["players"]]
         self.time_control = tournament["time_control"]
         self.description = tournament["description"]
         return self
 
     def retrieve_all(self):
-        tournaments = []
-        for tournament in self.table.all():
-            tournaments.append(Tournament().deserialize(tournament))
-        return tournaments
+        return [Tournament().deserialize(tournament) for tournament in self.table.all()]

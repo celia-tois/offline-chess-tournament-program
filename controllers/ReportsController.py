@@ -1,5 +1,4 @@
 from views.ReportsView import ReportsView
-from views.MenuView import MenuView
 from views.TournamentView import TournamentView
 from models.Player import Player
 from models.Tournament import Tournament
@@ -26,6 +25,6 @@ class ReportsController:
                     TournamentView.select_tournament(
                         Tournament().retrieve_all()))
             elif user_choice == "q":
-                MenuView.display_main_menu()
+                break
             else:
                 print("Invalid choice, please enter a correct option.")

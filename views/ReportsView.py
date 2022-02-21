@@ -1,5 +1,6 @@
 """Define the reports menu."""
 from prettytable import PrettyTable
+from views.ErrorHandlerView import ErrorHandlerView
 
 
 class ReportsView:
@@ -14,19 +15,28 @@ class ReportsView:
         print("4: List of the rounds of a tournament")
         print("5: List of the matches of a tournament")
         print("q: Return to the main menu")
-        user_choice = input("Your choice? ")
-        return user_choice
+        while True:
+            user_choice = input("Your choice? ")
+            if user_choice <= "5":
+                return user_choice
+            else:
+                ErrorHandlerView.display_error("Wrong option entered.")
 
     @staticmethod
     def display_table_option(table):
         print("Display players by:")
         print("1: alphabetical order")
         print("2: ranking")
-        user_choice = input("Your choice: ")
-        if user_choice == str(1):
-            print(table.get_string(sortby="last_name"))
-        elif user_choice == str(2):
-            print(table.get_string(sortby="ranking", reversesort=True))
+        while True:
+            user_choice = input("Your choice: ")
+            if user_choice == str(1):
+                print(table.get_string(sortby="last_name"))
+                break
+            elif user_choice == str(2):
+                print(table.get_string(sortby="ranking", reversesort=True))
+                break
+            else:
+                ErrorHandlerView.display_error("Wrong option entered.")
 
     @staticmethod
     def display_table(data):
@@ -81,22 +91,27 @@ class ReportsView:
         for round in rounds:
             print(f"{option}: {round['name']}")
             option += 1
-        user_choice = input("Round: ")
-        table.field_names = ["player_1_name",
-                             "player_1_score",
-                             "player_2_name",
-                             "player_2_score"]
-        matches = [round for round in rounds
-                   if user_choice in round['name']][0]['matches']
-        for match in matches:
-            player_1_name = ""
-            player_2_name = ""
-            player_1_score = match[0][1]
-            player_2_score = match[1][1]
-            for info in match[0][0]:
-                player_1_name = f"{info['first_name']} {info['last_name']}"
-            for info in match[1][0]:
-                player_2_name = f"{info['first_name']} {info['last_name']}"
-            table.add_row(
-                [player_1_name, player_1_score, player_2_name, player_2_score])
-        print(table)
+        while True:
+            user_choice = input("Round: ")
+            if user_choice <= str(len(rounds)):
+                table.field_names = ["player_1_name",
+                                     "player_1_score",
+                                     "player_2_name",
+                                     "player_2_score"]
+                matches = [round for round in rounds
+                           if user_choice in round['name']][0]['matches']
+                for match in matches:
+                    player_1_name = ""
+                    player_2_name = ""
+                    player_1_score = match[0][1]
+                    player_2_score = match[1][1]
+                    for info in match[0][0]:
+                        player_1_name = f"{info['first_name']} {info['last_name']}"
+                    for info in match[1][0]:
+                        player_2_name = f"{info['first_name']} {info['last_name']}"
+                    table.add_row(
+                        [player_1_name, player_1_score, player_2_name, player_2_score])
+                print(table)
+                break
+            else:
+                ErrorHandlerView.display_error("Wrong option entered.")

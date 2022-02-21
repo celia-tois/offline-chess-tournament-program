@@ -56,7 +56,4 @@ class Player:
         return self
 
     def retrieve_all(self):
-        players = []
-        for player in self.table.all():
-            players.append(Player().deserialize(player))
-        return players
+        return [Player().deserialize(player) for player in self.table.all()]

@@ -1,5 +1,6 @@
 from views.MenuView import MenuView
 from views.TournamentView import TournamentView
+from models.Player import Player
 from models.Round import Round
 from models.Tournament import Tournament
 from datetime import datetime
@@ -9,15 +10,16 @@ class TournamentMenuController:
     def __init__(self):
         self.tournament = (TournamentView
                            .select_tournament(Tournament().retrieve_all()))
-        user_choice = MenuView.display_tournament_menu()
-        if user_choice == "1":
-            TournamentMenuController.launch_round(self)
-        elif user_choice == "2":
-            TournamentMenuController.end_round(self)
-        elif user_choice == "q":
-            MenuView().display_main_menu()
-        else:
-            print("Invalid choice, please enter a correct option.")
+        while True:
+            user_choice = MenuView.display_tournament_menu()
+            if user_choice == "1":
+                TournamentMenuController.launch_round(self)
+            elif user_choice == "2":
+                TournamentMenuController.end_round(self)
+            elif user_choice == "q":
+                break
+            else:
+                print("Invalid choice, please enter a correct option.")
 
     def launch_round(self):
         if (len(self.tournament.rounds) == 0
@@ -60,22 +62,20 @@ class TournamentMenuController:
         def sort_by_rank(player):
             return player.get('ranking')
         players = self.tournament.players
-        sorted_players = sorted(players, key=sort_by_rank)
+        sorted_players = sorted(players, key=sort_by_rank, reverse=True)
         return sorted_players
 
     def sort_players_by_score_and_rank(self):
-        def sort_by_score(player):
-            return player.get('score')
-
-        def sort_by_rank(player):
-            return player.get('ranking')
         players = self.tournament.players
         sorted_players = sorted(players,
-                                key=lambda x: (sort_by_score, sort_by_rank))
+                                key=lambda x: (x.score, x.ranking), reverse=True)
         return sorted_players
 
     def first_players_pairing(self):
         players = TournamentMenuController.sort_players_by_rank(self)
+        print(Player().deserialize(player) for player in self.tournament["players"])
+
+        print(players)
         first_half = players[:4]
         second_half = players[4:8]
         players_pairs = []
@@ -92,4 +92,17 @@ class TournamentMenuController:
             ([players[2]], [players[3]]),
             ([players[4]], [players[5]]),
             ([players[6]], [players[7]])]
+        for round in self.tournament.rounds:
+        #for player in self.tournament.players:
+        #    print(player)
+            first_player_id = round['matches'][0][0][0][0]['id']
+            second_player_id = round['matches'][0][1][0][0]['id']
+            if first_player_id == players[0].id or first_player_id == players[1].id:
+                if second_player_id == players[0].id or second_player_id == players[1].id:
+                    players_pairs = [
+                        ([players[0]], [players[2]]),
+                        ([players[1]], [players[3]]),
+                        ([players[4]], [players[5]]),
+                        ([players[6]], [players[7]])
+                    ]
         return players_pairs
