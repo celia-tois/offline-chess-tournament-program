@@ -1,13 +1,17 @@
 from views.ErrorHandlerView import ErrorHandlerView
 
-"""Define the main menu."""
-
 
 class MenuView:
     """MainMenu class"""
 
     @staticmethod
     def display_main_menu():
+        """
+        display_main_menu()
+        Display the main menu options and an input.
+        :rtype: str
+        :return: user choice
+        """
         print("Menu")
         print("1: Add a player")
         print("2: Create a tournament")
@@ -22,6 +26,12 @@ class MenuView:
 
     @staticmethod
     def display_tournament_menu():
+        """
+        display_tournament_menu()
+        Display the tournament menu options and an input.
+        :rtype: str
+        :return: user choice
+        """
         print("Load a tournament:")
         print("1: Launch a round")
         print("2: End a round")
@@ -34,6 +44,13 @@ class MenuView:
 
     @staticmethod
     def display_players(players_to_display):
+        """
+        display_players()
+        Display the players and an input.
+        :arg: list of players to display
+        :rtype: str
+        :return: selected player
+        """
         for player in players_to_display:
             print(player)
         while True:
@@ -45,6 +62,11 @@ class MenuView:
 
     @staticmethod
     def modify_ranking(players_to_display):
+        """
+        modify_ranking()
+        Display the selected player name and an input to modify his ranking.
+        :arg: list of players to display
+        """
         player_selected = MenuView.display_players(players_to_display)
         new_ranking = ErrorHandlerView.is_an_int(f"Enter {player_selected.first_name} "
                                                  f"{player_selected.last_name} ranking: ")

@@ -16,7 +16,12 @@ class Tournament:
                  players=[],
                  time_control=None,
                  description=None):
-        """Init the name, place, date, players, time_control, description"""
+        """
+        __init__()
+        Init the id, name, place, start_date, end_date, number_rounds,
+        rounds, players, time_control, description and table of a player.
+        :arg: name, place, start_date, end_date, players, time_control, description
+        """
         self.id = -1
         self.name = name
         self.place = place
@@ -30,16 +35,34 @@ class Tournament:
         self.table = TinyDB('tournaments.json').table('tournaments')
 
     def __str__(self):
+        """
+        __str__()
+        :rtype: str
+        :return: id and name of the selected tournament
+        """
         return f"{self.id}: {self.name}"
 
     def insert(self):
+        """
+        insert()
+        Give the tournament the right id and call the update() function.
+        """
         self.id = self.table.insert(self.serialize())
         self.update()
 
     def update(self):
+        """
+        update()
+        Update the table.
+        """
         self.table.update(self.serialize(), doc_ids=[self.id])
 
     def serialize(self):
+        """
+        serialize()
+        :rtype: dict
+        :return: tournament's info serialized
+        """
         return {
             "id": self.id,
             "name": self.name,
@@ -54,6 +77,12 @@ class Tournament:
         }
 
     def deserialize(self, tournament):
+        """
+        deserialize()
+        :arg: selected tournament
+        :rtype: instance attribute
+        :return: tournament's info deserialized
+        """
         self.id = tournament["id"]
         self.name = tournament["name"]
         self.place = tournament["place"]
@@ -67,4 +96,9 @@ class Tournament:
         return self
 
     def retrieve_all(self):
+        """
+        retrieve_all()
+        :rtype: list
+        :return: list of deserialized tournaments
+        """
         return [Tournament().deserialize(tournament) for tournament in self.table.all()]

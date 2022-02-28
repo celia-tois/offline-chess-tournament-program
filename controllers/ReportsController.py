@@ -5,7 +5,13 @@ from models.Tournament import Tournament
 
 
 class ReportsController:
+    """ReportsController class"""
+
     def __init__(self):
+        """
+        __init__()
+        Redirect the user to the option selected.
+        """
         while True:
             user_choice = ReportsView.display_reports_menu()
             if user_choice == "1":

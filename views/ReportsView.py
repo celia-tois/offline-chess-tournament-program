@@ -8,6 +8,12 @@ class ReportsView:
 
     @staticmethod
     def display_reports_menu():
+        """
+        display_reports_menu()
+        Display reports menu options and an input.
+        :rtype: str
+        :return: user choice
+        """
         print("Reports menu")
         print("1: List of the actors")
         print("2: List of the tournament's players")
@@ -24,6 +30,14 @@ class ReportsView:
 
     @staticmethod
     def display_table_option(table):
+        """
+        display_table_option()
+        Display table options for the user to choose in which way
+        the table will be displayed and an input.
+        :arg: table
+        :rtype: str
+        :return: user choice
+        """
         print("Display players by:")
         print("1: alphabetical order")
         print("2: ranking")
@@ -40,6 +54,13 @@ class ReportsView:
 
     @staticmethod
     def display_table(data):
+        """
+        display_table()
+        Display the table.
+        :arg: data to display
+        :rtype: PrettyTable
+        :return: table
+        """
         table = PrettyTable()
         table.field_names = [attr for attr, value in data[0].__dict__.items()
                              if not attr == "table"]
@@ -50,10 +71,24 @@ class ReportsView:
 
     @staticmethod
     def display_players(data):
+        """
+        display_players()
+        Call the display_table_option() function to display the table.
+        :arg: players to display
+        :rtype: PrettyTable
+        :return: table
+        """
         ReportsView.display_table_option(ReportsView.display_table(data))
 
     @staticmethod
     def display_tournaments(data):
+        """
+        display_tournaments()
+        Call the display_table_option() function to display the table.
+        :arg: tournaments to display
+        :rtype: PrettyTable
+        :return: table
+        """
         table = ReportsView.display_table(data)
         print(table.get_string(fields=["name",
                                        "place",
@@ -64,6 +99,13 @@ class ReportsView:
 
     @staticmethod
     def display_rounds(data):
+        """
+        display_rounds()
+        Call the display_table_option() function to display the table.
+        :arg: rounds to display
+        :rtype: PrettyTable
+        :return: table
+        """
         table = PrettyTable()
         rounds = [value for attr, value in data.__dict__.items()
                   if attr == "rounds"][0]
@@ -74,6 +116,13 @@ class ReportsView:
 
     @staticmethod
     def display_matches(data):
+        """
+        display_matches()
+        Call the display_table_option() function to display the table.
+        :arg: matches to display
+        :rtype: PrettyTable
+        :return: table
+        """
         table = PrettyTable()
         rounds = [value for attr, value in data.__dict__.items()
                   if attr == "rounds"][0]

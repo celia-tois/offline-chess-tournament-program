@@ -6,6 +6,13 @@ class TournamentView:
 
     @staticmethod
     def create_tournament(players_to_display):
+        """
+        create_tournament()
+        Display inputs so that the user enter new tournament' information.
+        :arg: list of players to display
+        :rtype: dict
+        :return: new tournament information
+        """
         print("Create a tournament:")
         data = dict()
         data["name_input"] = ErrorHandlerView.is_a_string("Name: ")
@@ -25,6 +32,7 @@ class TournamentView:
         display_players()
         Display all the players and return a list of the players
         selected by the user.
+        :arg: list of players to display
         :rtype: list of objects
         :return: selected players
         """
@@ -52,7 +60,8 @@ class TournamentView:
         select_tournament()
         Display all the tournaments and return the tournament
         selected by the user.
-        :rtype: str
+        :arg: list of tournaments to display
+        :rtype: class instance
         :return: selected tournament
         """
         print("Select a tournament:")
@@ -75,6 +84,13 @@ class TournamentView:
 
     @staticmethod
     def enter_match_result(match):
+        """
+        enter_match_result()
+        Display options and an input so that the user enter the match's winner.
+        :arg: match
+        :rtype: str
+        :return: winner of the match
+        """
         print("Select the winner:")
         print("0: equality")
         option = 1

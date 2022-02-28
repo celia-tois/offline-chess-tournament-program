@@ -6,6 +6,12 @@ class PlayerView:
 
     @staticmethod
     def player():
+        """
+        player()
+        Display inputs so that the user enter new player' information.
+        :rtype: dict
+        :return: new player information
+        """
         print("Add a player:")
         data = dict()
         data["last_name_input"] = ErrorHandlerView.is_a_string("Last name: ")

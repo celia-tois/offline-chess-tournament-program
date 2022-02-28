@@ -5,9 +5,15 @@ from models.Tournament import Tournament
 
 
 class Controller:
+    """Controller class"""
 
     @staticmethod
     def add_player():
+        """
+        add_player()
+        Create a new player by calling the function player() inside
+        PlayerView class and giving the acquired values to Player class.
+        """
         player_info = PlayerView.player()
         player = (Player(player_info['last_name_input'],
                          player_info['first_name_input'],
@@ -18,6 +24,12 @@ class Controller:
 
     @staticmethod
     def create_tournament():
+        """
+        create_tournament()
+        Create a new tournament by calling the function create_tournament()
+        inside TournamentView class and giving the acquired values to Tournament
+        class.
+        """
         tournament_info = (TournamentView
                            .create_tournament(Player().retrieve_all()))
         tournament = (Tournament(tournament_info["name_input"],

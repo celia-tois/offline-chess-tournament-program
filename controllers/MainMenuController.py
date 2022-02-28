@@ -6,7 +6,13 @@ from controllers.TournamentMenuController import TournamentMenuController
 
 
 class MainMenuController:
+    """MainMenuController class"""
+
     def __init__(self):
+        """
+        __init__()
+        Redirect the user to the option selected.
+        """
         while True:
             user_choice = MenuView.display_main_menu()
             if user_choice == "1":

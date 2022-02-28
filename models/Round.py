@@ -2,14 +2,25 @@ from datetime import datetime
 
 
 class Round:
+    """Round class"""
+
     def __init__(self, tournament):
-        self.number = 1
+        """
+        __init__()
+        Init the name, start_date, end_date and matches of a tournament.
+        :arg: selected tournament
+        """
         self.name = "Round " + str(len(tournament) + 1)
         self.start_date = datetime.now().isoformat(timespec='minutes')
         self.end_date = None
         self.matches = []
 
     def serialize(self):
+        """
+        serialize()
+        :rtype: dict
+        :return: tournament's info serialized
+        """
         return {
             "name": self.name,
             "start_date": self.start_date,
@@ -20,6 +31,12 @@ class Round:
         }
 
     def deserialize(self, round):
+        """
+        deserialize()
+        :arg: selected round
+        :rtype: instance attribute
+        :return: tournament's info deserialized
+        """
         self.name = round["name"]
         self.start_date = round["start_date"]
         self.end_date = round["end_date"]
