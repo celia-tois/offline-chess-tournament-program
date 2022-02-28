@@ -14,7 +14,7 @@ class TournamentView:
         data["end_date_input"] = ErrorHandlerView.is_a_date("End date (DD/MM/YYYY): ")
         data["players_input"] = (TournamentView
                                  .display_players(players_to_display))
-        data["time_control_input"] = input(
+        data["time_control_input"] = ErrorHandlerView.time_control(
             "Time control (bullet, blitz, coup rapide): ")
         data["description_input"] = ErrorHandlerView.is_a_string("Description: ")
         return data
@@ -34,11 +34,16 @@ class TournamentView:
                 print(player)
             while True:
                 players_input = input("Player: ")
+                player_id = ""
                 for player in players_to_display:
-                    if int(players_input) == player.id:
+                    if players_input == str(player.id):
+                        player_id = player.id
                         players_selected.append(player)
                         players_to_display.remove(player)
+                if players_input != str(player_id):
                     ErrorHandlerView.display_error("Wrong option entered.")
+                else:
+                    break
         return players_selected
 
     @staticmethod
@@ -53,12 +58,20 @@ class TournamentView:
         print("Select a tournament:")
         for tournament in tournaments_to_display:
             print(tournament)
-        tournament_input = input("Tournament: ")
-        for tournament in tournaments_to_display:
-            tournament_id = [value for attr, value
-                             in tournament.__dict__.items()if attr == "id"][0]
-            if int(tournament_input) == tournament_id:
-                return tournament
+        while True:
+            tournament_input = input("Tournament: ")
+            tournament_selected_id = ""
+            tournament_selected = ""
+            for tournament in tournaments_to_display:
+                tournament_id = [value for attr, value
+                                 in tournament.__dict__.items()if attr == "id"][0]
+                if tournament_input == str(tournament_id):
+                    tournament_selected_id = tournament_id
+                    tournament_selected = tournament
+            if tournament_input != str(tournament_selected_id):
+                ErrorHandlerView.display_error("Wrong option entered.")
+            else:
+                return tournament_selected
 
     @staticmethod
     def enter_match_result(match):
@@ -69,5 +82,5 @@ class TournamentView:
             print(f"{option}: {player[0]['first_name']} "
                   f"{player[0]['last_name']}")
             option += 1
-        winner = input("Winner: ")
+        winner = ErrorHandlerView.match_result("Winner: ")
         return winner

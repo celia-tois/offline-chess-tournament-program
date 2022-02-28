@@ -23,14 +23,14 @@ class TournamentMenuController:
 
     def launch_round(self):
         if (len(self.tournament.rounds) == 0
-                or self.tournament.rounds[-1]["end_date"] is not None):
-            new_round = Round(self.tournament.rounds).serialize()
+                or self.tournament.rounds[-1].end_date is not None):
+            new_round = Round(self.tournament.rounds)
             if len(self.tournament.rounds) == 0:
-                new_round["matches"] = (TournamentMenuController
-                                        .first_players_pairing(self))
+                new_round.matches = (TournamentMenuController
+                                     .first_players_pairing(self))
             else:
-                new_round["matches"] = (TournamentMenuController
-                                        .others_players_pairing(self))
+                new_round.matches = (TournamentMenuController
+                                     .others_players_pairing(self))
             self.tournament.rounds.append(new_round)
             self.tournament.update()
         else:
@@ -59,10 +59,8 @@ class TournamentMenuController:
         self.tournament.update()
 
     def sort_players_by_rank(self):
-        def sort_by_rank(player):
-            return player.get('ranking')
         players = self.tournament.players
-        sorted_players = sorted(players, key=sort_by_rank, reverse=True)
+        sorted_players = sorted(players, key=lambda x: int(x.ranking), reverse=True)
         return sorted_players
 
     def sort_players_by_score_and_rank(self):
@@ -73,7 +71,7 @@ class TournamentMenuController:
 
     def first_players_pairing(self):
         players = TournamentMenuController.sort_players_by_rank(self)
-        print(Player().deserialize(player) for player in self.tournament["players"])
+        print(Player().deserialize(player) for player in self.tournament.players)
 
         print(players)
         first_half = players[:4]
@@ -93,10 +91,8 @@ class TournamentMenuController:
             ([players[4]], [players[5]]),
             ([players[6]], [players[7]])]
         for round in self.tournament.rounds:
-        #for player in self.tournament.players:
-        #    print(player)
-            first_player_id = round['matches'][0][0][0][0]['id']
-            second_player_id = round['matches'][0][1][0][0]['id']
+            first_player_id = round.matches[0][0][0][0].id
+            second_player_id = round.matches[0][1][0][0].id
             if first_player_id == players[0].id or first_player_id == players[1].id:
                 if second_player_id == players[0].id or second_player_id == players[1].id:
                     players_pairs = [

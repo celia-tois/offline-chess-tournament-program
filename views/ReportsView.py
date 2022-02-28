@@ -53,16 +53,6 @@ class ReportsView:
         ReportsView.display_table_option(ReportsView.display_table(data))
 
     @staticmethod
-    def display_tournament_players(data):
-        table = PrettyTable()
-        players = [value for attr, value in data.__dict__.items()
-                   if attr == "players"][0]
-        table.field_names = [attr for attr in players[0]]
-        for player in players:
-            table.add_row([value for attr, value in player.items()])
-        ReportsView.display_table_option(table)
-
-    @staticmethod
     def display_tournaments(data):
         table = ReportsView.display_table(data)
         print(table.get_string(fields=["name",

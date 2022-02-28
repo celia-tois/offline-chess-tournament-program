@@ -11,9 +11,9 @@ class ReportsController:
             if user_choice == "1":
                 ReportsView().display_players(Player().retrieve_all())
             elif user_choice == "2":
-                ReportsView().display_tournament_players(
+                ReportsView().display_players(
                     TournamentView.select_tournament(
-                        Tournament().retrieve_all()))
+                        Tournament().retrieve_all()).players)
             elif user_choice == "3":
                 ReportsView().display_tournaments(Tournament().retrieve_all())
             elif user_choice == "4":

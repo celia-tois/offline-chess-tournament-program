@@ -2,6 +2,7 @@
 
 from tinydb import TinyDB
 from models.Player import Player
+from models.Round import Round
 
 
 class Tournament:
@@ -46,7 +47,7 @@ class Tournament:
             "start_date": self.start_date,
             "end_date": self.end_date,
             "number_rounds": self.number_rounds,
-            "rounds": self.rounds,
+            "rounds": [round.serialize() for round in self.rounds],
             "players": [player.serialize() for player in self.players],
             "time_control": self.time_control,
             "description": self.description
@@ -59,7 +60,7 @@ class Tournament:
         self.start_date = tournament["start_date"]
         self.end_date = tournament["end_date"]
         self.number_rounds = tournament["number_rounds"]
-        self.rounds = tournament["rounds"]
+        self.rounds = [Round(tournament).deserialize(round) for round in tournament["rounds"]]
         self.players = [Player().deserialize(player) for player in tournament["players"]]
         self.time_control = tournament["time_control"]
         self.description = tournament["description"]

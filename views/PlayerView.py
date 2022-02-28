@@ -1,5 +1,6 @@
 from views.ErrorHandlerView import ErrorHandlerView
 
+
 class PlayerView:
     """AddPlayer class"""
 

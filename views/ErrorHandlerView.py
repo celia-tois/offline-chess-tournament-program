@@ -39,4 +39,20 @@ class ErrorHandlerView:
                 return user_input
             print("Wrong format.")
 
+    @staticmethod
+    def time_control(message):
+        while True:
+            user_input = input(message)
+            if re.match(r'^bullet', user_input)\
+                    or re.match(r'^blitz', user_input)\
+                    or re.match(r'^coup rapide', user_input):
+                return user_input
+            print("Wrong format.")
 
+    @staticmethod
+    def match_result(message):
+        while True:
+            user_input = input(message)
+            if user_input == "0" or user_input == "1" or user_input == "2":
+                return user_input
+            print("Wrong format.")
