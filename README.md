@@ -2,11 +2,11 @@
 ***
 The offline chess tournament program allows you to manage tournaments offline and produce reports. You can add players, create tournaments, generate pairs of players for your tournaments, and see reports of the tournaments, rounds, matches, etc. which are saved inside a database.
 ## How to install my project
-1. Clone the repository:
+1. Open the Terminal
+2. Clone the repository:
 ```
 $ git clone https://github.com/CeliaTois/CeliaTOIS_4_03012022.git
 ```
-2. Open the Terminal
 3. Go to the project folder:
 ```
 $ cd ../path/to/the/file
