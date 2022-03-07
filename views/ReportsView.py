@@ -23,7 +23,7 @@ class ReportsView:
         print("q: Return to the main menu")
         while True:
             user_choice = input("Your choice? ")
-            if user_choice <= "5":
+            if user_choice <= "5" or user_choice == "q":
                 return user_choice
             else:
                 ErrorHandlerView.display_error("Wrong option entered.")
@@ -53,11 +53,11 @@ class ReportsView:
                 ErrorHandlerView.display_error("Wrong option entered.")
 
     @staticmethod
-    def display_table(data):
+    def display_players(data):
         """
-        display_table()
-        Display the table.
-        :arg: data to display
+        display_players()
+        Display the players table.
+        :arg: players to display
         :rtype: PrettyTable
         :return: table
         """
@@ -67,35 +67,27 @@ class ReportsView:
         for info in data:
             table.add_row([value for attr, value in info.__dict__.items()
                            if not attr == "table"])
-        return table
-
-    @staticmethod
-    def display_players(data):
-        """
-        display_players()
-        Call the display_table_option() function to display the table.
-        :arg: players to display
-        :rtype: PrettyTable
-        :return: table
-        """
-        ReportsView.display_table_option(ReportsView.display_table(data))
+        ReportsView.display_table_option(table)
 
     @staticmethod
     def display_tournaments(data):
         """
         display_tournaments()
-        Call the display_table_option() function to display the table.
+        Display the tournaments table.
         :arg: tournaments to display
         :rtype: PrettyTable
         :return: table
         """
-        table = ReportsView.display_table(data)
-        print(table.get_string(fields=["name",
-                                       "place",
-                                       "start_date",
-                                       "end_date",
-                                       "time_control",
-                                       "description"]))
+        table = PrettyTable()
+        table.field_names = [attr for attr, value in data[0].__dict__.items()
+                             if not attr == "table" if not attr == "rounds" if not attr == "number_rounds" if
+                             not attr == "players"]
+        for info in data:
+            table.add_row([value for attr, value in info.__dict__.items()
+                           if not attr == "table" if not attr == "rounds" if not attr == "number_rounds" if
+                           not attr == "players"])
+
+        print(table)
 
     @staticmethod
     def display_rounds(data):
@@ -109,10 +101,13 @@ class ReportsView:
         table = PrettyTable()
         rounds = [value for attr, value in data.__dict__.items()
                   if attr == "rounds"][0]
-        table.field_names = [attr for attr in rounds[0]]
-        for round in rounds:
-            table.add_row([value for attr, value in round.items()])
-        print(table.get_string(fields=["name", "start_date"]))
+        if len(rounds) > 0:
+            table.field_names = [attr for attr, value in rounds[0].__dict__.items()]
+            for round in rounds:
+                table.add_row([value for attr, value in round.__dict__.items()])
+            print(table.get_string(fields=["name", "start_date"]))
+        else:
+            ErrorHandlerView.display_error("There is no round to display. Please choose another tournament.")
 
     @staticmethod
     def display_matches(data):
@@ -126,31 +121,32 @@ class ReportsView:
         table = PrettyTable()
         rounds = [value for attr, value in data.__dict__.items()
                   if attr == "rounds"][0]
-        option = 1
-        for round in rounds:
-            print(f"{option}: {round['name']}")
-            option += 1
-        while True:
-            user_choice = input("Round: ")
-            if user_choice <= str(len(rounds)):
-                table.field_names = ["player_1_name",
-                                     "player_1_score",
-                                     "player_2_name",
-                                     "player_2_score"]
-                matches = [round for round in rounds
-                           if user_choice in round['name']][0]['matches']
-                for match in matches:
-                    player_1_name = ""
-                    player_2_name = ""
-                    player_1_score = match[0][1]
-                    player_2_score = match[1][1]
-                    for info in match[0][0]:
-                        player_1_name = f"{info['first_name']} {info['last_name']}"
-                    for info in match[1][0]:
-                        player_2_name = f"{info['first_name']} {info['last_name']}"
-                    table.add_row(
-                        [player_1_name, player_1_score, player_2_name, player_2_score])
-                print(table)
-                break
-            else:
-                ErrorHandlerView.display_error("Wrong option entered.")
+        if len(rounds) > 0:
+            option = 1
+            for round in rounds:
+                print(f"{option}: {round.name}")
+                option += 1
+            while True:
+                user_choice = input("Round: ")
+                if user_choice <= str(len(rounds)):
+                    table.field_names = ["player_1_name",
+                                         "player_1_score",
+                                         "player_2_name",
+                                         "player_2_score"]
+                    round_selected = [round for round in rounds
+                               if user_choice in round.name][0]
+                    matches = [value for attr, value in round_selected.__dict__.items() if attr == "matches"]
+                    for match in matches[0]:
+                        print(match[0][0].first_name)
+                        player_1_name = f"{match[0][0].first_name} {match[0][0].last_name}"
+                        player_2_name = f"{match[1][0].first_name} {match[1][0].last_name}"
+                        player_1_score = match[0][1]
+                        player_2_score = match[1][1]
+                        table.add_row(
+                            [player_1_name, player_1_score, player_2_name, player_2_score])
+                    print(table)
+                    break
+                else:
+                    ErrorHandlerView.display_error("Wrong option entered.")
+        else:
+            ErrorHandlerView.display_error("There is no round to display. Please choose another tournament.")

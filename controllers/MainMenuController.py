@@ -1,5 +1,7 @@
 from views.MenuView import MenuView
+from views.ErrorHandlerView import ErrorHandlerView
 from models.Player import Player
+from models.Tournament import Tournament
 from controllers.ReportsController import ReportsController
 from controllers.Controller import Controller
 from controllers.TournamentMenuController import TournamentMenuController

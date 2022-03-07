@@ -67,10 +67,13 @@ class MenuView:
         Display the selected player name and an input to modify his ranking.
         :arg: list of players to display
         """
-        player_selected = MenuView.display_players(players_to_display)
-        new_ranking = ErrorHandlerView.is_an_int(f"Enter {player_selected.first_name} "
-                                                 f"{player_selected.last_name} ranking: ")
-        for player in players_to_display:
-            if player_selected.id == player.id:
-                player.ranking = int(new_ranking)
-            player.update()
+        if len(players_to_display) > 0:
+            player_selected = MenuView.display_players(players_to_display)
+            new_ranking = ErrorHandlerView.is_an_int(f"Enter {player_selected.first_name} "
+                                                     f"{player_selected.last_name} ranking: ")
+            for player in players_to_display:
+                if player_selected.id == player.id:
+                    player.ranking = int(new_ranking)
+                player.update()
+        else:
+            ErrorHandlerView.display_error("No players have been created. Please, create at least 1 player.")

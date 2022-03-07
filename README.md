@@ -36,7 +36,7 @@ $ cd ../path/to/the/file
 $ python main.py
 ```
 
-## How to generate a new flake report?
+## How to generate a new flake report
 1. Open the Terminal
 2. Go to the project folder:
 ```

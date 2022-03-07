@@ -1,5 +1,6 @@
 from views.PlayerView import PlayerView
 from views.TournamentView import TournamentView
+from views.ErrorHandlerView import ErrorHandlerView
 from models.Player import Player
 from models.Tournament import Tournament
 
@@ -30,13 +31,16 @@ class Controller:
         inside TournamentView class and giving the acquired values to Tournament
         class.
         """
-        tournament_info = (TournamentView
-                           .create_tournament(Player().retrieve_all()))
-        tournament = (Tournament(tournament_info["name_input"],
-                                 tournament_info["place_input"],
-                                 tournament_info["start_date_input"],
-                                 tournament_info["end_date_input"],
-                                 tournament_info["players_input"],
-                                 tournament_info["time_control_input"],
-                                 tournament_info["description_input"]))
-        tournament.insert()
+        if len(Player().retrieve_all()) >= 8:
+            tournament_info = (TournamentView
+                               .create_tournament(Player().retrieve_all()))
+            tournament = (Tournament(tournament_info["name_input"],
+                                     tournament_info["place_input"],
+                                     tournament_info["start_date_input"],
+                                     tournament_info["end_date_input"],
+                                     tournament_info["players_input"],
+                                     tournament_info["time_control_input"],
+                                     tournament_info["description_input"]))
+            tournament.insert()
+        else:
+            ErrorHandlerView.display_error("Not enough players have been created. Please, add at least 8 players.")

@@ -95,8 +95,8 @@ class TournamentView:
         print("0: equality")
         option = 1
         for player in match:
-            print(f"{option}: {player[0]['first_name']} "
-                  f"{player[0]['last_name']}")
+            print(f"{option}: {player[0].first_name} "
+                  f"{player[0].last_name}")
             option += 1
         winner = ErrorHandlerView.match_result("Winner: ")
         return winner
