@@ -133,8 +133,7 @@ class ReportsView:
                                          "player_1_score",
                                          "player_2_name",
                                          "player_2_score"]
-                    round_selected = [round for round in rounds
-                               if user_choice in round.name][0]
+                    round_selected = [round for round in rounds if user_choice in round.name][0]
                     matches = [value for attr, value in round_selected.__dict__.items() if attr == "matches"]
                     for match in matches[0]:
                         print(match[0][0].first_name)
