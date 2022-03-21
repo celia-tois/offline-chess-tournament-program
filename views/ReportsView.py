@@ -102,10 +102,13 @@ class ReportsView:
         rounds = [value for attr, value in data.__dict__.items()
                   if attr == "rounds"][0]
         if len(rounds) > 0:
-            table.field_names = [attr for attr, value in rounds[0].__dict__.items()]
-            for round in rounds:
-                table.add_row([value for attr, value in round.__dict__.items()])
-            print(table.get_string(fields=["name", "start_date"]))
+            if rounds[-1].end_date is not None:
+                table.field_names = [attr for attr, value in rounds[0].__dict__.items() if not attr == "matches"]
+                for round in rounds:
+                    table.add_row([value for attr, value in round.__dict__.items() if not attr == "matches"])
+                print(table)
+            else:
+                ErrorHandlerView.display_error("Please end the round before displaying its report.")
         else:
             ErrorHandlerView.display_error("There is no round to display. Please choose another tournament.")
 
