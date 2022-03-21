@@ -11,16 +11,20 @@ $ git clone https://github.com/CeliaTois/CeliaTOIS_4_03012022.git
 ```
 $ cd ../path/to/the/file
 ```
-4. Create the virtual environment:
-   - On macOS and Linux:
-   ```
-   $ source env/bin/activate
-   ```
-   - On Windows:
-   ```
-   $ env/Scripts/activate
-   ```
-5. Install the packages:
+4. Create the **virtual environment**:
+```
+python -m venv env
+```
+5. Activate the **virtual environment**:
+   - on macOS and Linux:
+     ```
+     source env/bin/activate
+     ```
+   - on windows:
+     ```
+     env/Scripts/activate
+     ```
+6. Install the packages:
 ```
 $ pip install -r requirements.txt
 ```
