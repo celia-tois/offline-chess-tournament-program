@@ -25,7 +25,7 @@ class ErrorHandlerView:
         while True:
             user_input = input(message)
             if re.match(r'^[0-9]*$', user_input):
-                return user_input
+                return int(user_input)
             print("Wrong format.")
 
     @staticmethod
