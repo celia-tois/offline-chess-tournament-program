@@ -5,7 +5,7 @@ The offline chess tournament program allows you to manage tournaments offline an
 1. Open the Terminal
 2. Clone the repository:
 ```
-$ git clone https://github.com/CeliaTois/CeliaTOIS_4_03012022.git
+$ git clone https://github.com/celia-tois/offline-chess-tournament-program.git
 ```
 3. Go to the project folder:
 ```
